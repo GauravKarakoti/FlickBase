@@ -1,8 +1,9 @@
-import { Divider, Grid, Modal, TextField } from "@material-ui/core";
+import { Divider, Grid, TextField } from "@material-ui/core";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import EditIcon from "@material-ui/icons/Edit"
 import EmailStepper from "./stepper/mail";
+import { Modal } from "react-bootstrap";
 
 const AuthProfile = () => {
     const [emailModal, setEmailModal] = useState(false);
