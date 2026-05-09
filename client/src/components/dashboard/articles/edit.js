@@ -158,7 +158,7 @@ const EditArticle = (props) => {
                                         </FormHelperText> : null
                                     }
                                     <div className="chip_container">
-                                        {formik.values.actors.map((actor, index) => {
+                                        {formik.values.actors.map((actor, index) => (
                                             <div key={actor}>
                                                 <Chip
                                                     label={`${actor}`}
@@ -166,7 +166,7 @@ const EditArticle = (props) => {
                                                     onDelete={() => arrayHelpers.remove(index)}
                                                 />
                                             </div>
-                                        })}
+                                        ))}
                                     </div>
                                 </div>
                             }}
