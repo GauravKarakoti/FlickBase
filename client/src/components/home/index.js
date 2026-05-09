@@ -27,11 +27,11 @@ const Home = () => {
         </div>
         <Grid container spacing={2} className="article_card">
             {articles && articles.articles ?
-                articles.articles.map((item) => {
+                articles.articles.map((item) => (
                     <Grid key={item._id} item xs={12} sm={6} lg={3}>
                         <ArticleCard key={1} article={item}/>
                     </Grid>
-                }): null
+                )): null
             }
         </Grid>
         <button

@@ -1,4 +1,3 @@
-import { removeArticle } from "../actions";
 import { CLEAR_NOTIFICATION, ERROR_GLOBAL, REMOVE_ARTICLE, SUCCESS_GLOBAL } from "../types";
 
 export default function notificationReducer(state={}, action) {

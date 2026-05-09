@@ -49,7 +49,7 @@ export const signOut = () => {
         dispatch(users.signOut());
     }
 }
-export const changeEmail = () => {
+export const changeEmail = (data) => {
     return async(dispatch) => {
         try {
             await axios.patch(`${process.env.REACT_APP_SERVER_URL}/api/users/update_email`, {

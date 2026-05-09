@@ -51,7 +51,7 @@ const Auth = (props) => {
                             label="Enter your email"
                             variant='outlined'
                             {...formik.getFieldProps('email')}
-                            {...errorHelper(formik, email)}
+                            {...errorHelper(formik, 'email')}
                         />
                     </div>
                     <div className='form-group'>
@@ -62,7 +62,7 @@ const Auth = (props) => {
                             variant='outlined'
                             type='password'
                             {...formik.getFieldProps('password')}
-                            {...errorHelper(formik, password)}
+                            {...errorHelper(formik, 'password')}
                         />
                     </div>
                     <Button

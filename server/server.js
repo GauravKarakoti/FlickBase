@@ -5,6 +5,7 @@ const bodyParser = require('body-parser');
 const users = require('./routes/api/users');
 const { checkToken } = require('./middleware/auth');
 const articles = require('./routes/api/articles');
+const cors = require('cors');
 require('dotenv').config();
 const mongoUri = process.env.MONGOURI;
 mongoose.connect(mongoUri, {
@@ -13,6 +14,7 @@ mongoose.connect(mongoUri, {
     useCreateIndex: true,
     useFindAndModify: false
 });
+app.use(cors());
 app.use(bodyParser.json());
 app.use(checkToken);
 app.use("/api/users", users);

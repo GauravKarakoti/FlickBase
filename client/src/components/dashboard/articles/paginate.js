@@ -3,7 +3,7 @@ import Loader from "../../../utils/loader"
 import Moment from 'react-moment'
 
 const PaginationComponent = ({
-    arts, prev, next, handleStatusChange, handleStatusChange, editArtsAction
+    arts, prev, next, handleStatusChange, editArtsAction
 }) => {
     const goToPrevPage = (page) => {
         prev(page);
@@ -24,7 +24,7 @@ const PaginationComponent = ({
                             </tr>
                         </thead>
                         <tbody>
-                            {arts.docs.map((item) => {
+                            {arts.docs.map((item) => (
                                 <tr key={item._id}>
                                     <td><Moment to={item.date}></Moment></td>
                                     <td>{item.title}</td>
@@ -48,7 +48,7 @@ const PaginationComponent = ({
                                         {item.status}
                                     </td>
                                 </tr>
-                            })}
+                            ))}
                         </tbody>
                     </Table>
                     <Pagination>

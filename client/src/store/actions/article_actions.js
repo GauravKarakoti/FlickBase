@@ -56,7 +56,7 @@ export const getPaginateArticles = (page=1, limit=10) => {
         }
     }
 }
-export const changeStatusArticle = (status, id) => {
+export const changeStatusArticle = (status, _id) => {
     return async(dispatch, getState) => {
         try {
             const article = await axios.patch(`${process.env.REACT_APP_SERVER_URL}/api/articles/admin/${_id}`, {
@@ -73,7 +73,7 @@ export const changeStatusArticle = (status, id) => {
         }
     }
 }
-export const removeArticle = () => {
+export const removeArticle = (id) => {
     return async(dispatch) => {
         try {
             await axios.delete(`${process.env.REACT_APP_SERVER_URL}/api/articles/admin/${id}`, getAuthHeader());

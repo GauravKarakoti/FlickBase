@@ -20,7 +20,7 @@ const ScoreCard = ({ current }) => {
                     <Avatar><PersonIcon/></Avatar>
                 </ListItemAvatar>
                 <div>
-                    {current.actor.map((item, index) => {
+                    {current.actor.map((item, index) => (
                         <Chip
                             key={`${index+item}`}
                             item={item}
@@ -29,7 +29,7 @@ const ScoreCard = ({ current }) => {
                             color="primary"
                             className="chip"
                         />
-                    })}
+                    ))}
                 </div>
             </ListItem>
             <Divider variant="inset" component="li"/>

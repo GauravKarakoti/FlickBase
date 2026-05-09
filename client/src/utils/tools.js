@@ -1,5 +1,5 @@
 import { toast } from "react-toastify";
-import cookie from 'react-cookie';
+import cookie from 'react-cookies';
 
 export const showToast = (type, msg) => {
     switch(type) {
