@@ -9,7 +9,7 @@ const NavSearch = (props) => {
     const dispatch = useDispatch();
     const formik = useFormik({
         initialValues: { keywords: '' },
-        validationSchema: yupToFormErrors.object({
+        validationSchema: Yup.object({
             keywords: Yup.string()
                 .required('Sorry this is required')
                 .min(3, 'Just 3? C\'mon')
