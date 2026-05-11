@@ -1,4 +1,4 @@
-import { ADD_ARTICLE, CLEAR_CURRENT_ARTICLE, GET_ADMIN_ARTICLES, GET_ARTICLE, GET_ARTICLES, UPDATE_ARTICLE_STATUS } from "../types";
+import { ADD_ARTICLE, ADD_CATEGORY, CLEAR_CURRENT_ARTICLE, GET_ADMIN_ARTICLES, GET_ARTICLE, GET_ARTICLES, GET_CATEGORIES, NAV_SEARCH, UPDATE_ARTICLE_STATUS } from "../types";
 
 export default function articlesReducer(state={}, action) {
     switch(action.type) {
@@ -20,6 +20,12 @@ export default function articlesReducer(state={}, action) {
                     docs: action.payload
                 }
             }
+        case GET_CATEGORIES:
+            return {...state, categories: action.payload}
+        case ADD_CATEGORY:
+            return {...state, categories: action.payload}
+        case NAV_SEARCH:
+            return {...state, navsearch: action.payload}
         default:
             return state
     }

@@ -43,10 +43,11 @@ export const addArticle = (article) => {
         }
     }
 }
-export const getPaginateArticles = (page=1, limit=10) => {
+export const getPaginateArticles = (page=1, limit=10, keywords='') => {
     return async(dispatch) => {
         try {
             const request = await axios.post(`${process.env.REACT_APP_SERVER_URL}/api/articles/admin/paginate`, {
+                keywords,
                 page,
                 limit
             }, getAuthHeader());
@@ -103,9 +104,52 @@ export const updateArticle = (article, id) => {
                 getAuthHeader()
             );
             dispatch(articles.getArticle(newArticle.data));
-            dispatch(article.successGlobal('Update done!!'));
+            dispatch(articles.successGlobal('Update done!!'));
         } catch(error) {
-            dispatch(article.errorGlobal('Error, Try Again!!'));
+            dispatch(articles.errorGlobal('Error, Try Again!!'));
+        }
+    }
+}
+export const getCategories = () => {
+    return async(dispatch) => {
+        try {
+            const categories = await axios(`${process.env.REACT_APP_SERVER_URL}/api/articles/categories`);
+            dispatch(articles.getCategories(categories.data));
+        } catch(error) {
+            dispatch(articles.errorGlobal('Error, Try Again!!'));
+        }
+    }
+}
+export const addCategory = (values) => {
+    return async(dispatch, getState) => {
+        try {
+            const category = await axios.post(
+                `${process.env.REACT_APP_SERVER_URL}/api/articles/categories`,
+                values,
+                getAuthHeader()
+            );
+            let newState = [
+                ...getState().articles.categories,
+                category.data
+            ];
+            dispatch(articles.addCategory(newState));
+            dispatch(articles.successGlobal('Category Added!!'));
+        } catch(error) {
+            dispatch(articles.errorGlobal('Error, Try Again!!'));
+        }
+    }
+}
+export const getSearchNavResults = (page=1, limit=5, keywords='') => {
+    return async(dispatch) => {
+        try {
+            const request = await axios.post(`${process.env.REACT_APP_SERVER_URL}/api/articles/user/search`, {
+                keywords,
+                page,
+                limit
+            });
+            dispatch(articles.navSearch(request.data));
+        } catch(error) {
+            dispatch(articles.errorGlobal(error.response.data.message));
         }
     }
 }

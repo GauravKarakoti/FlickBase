@@ -6,7 +6,8 @@ export const formValues = {
     score: '',
     director: '',
     actors: [],
-    status: 'draft'
+    status: 'draft',
+    category: ''
 }
 export const validation = () => {
     Yup.object({
@@ -27,6 +28,8 @@ export const validation = () => {
         actors: Yup.array()
             .required("Must have actors")
             .min(3, 'Minimum is 3'),
+        category: Yup.string()
+            .required("Sorry the category is required"),
         status: Yup.string()
             .required("Sorry the status is required")
     });

@@ -1,4 +1,4 @@
-import { ADD_ARTICLE, AUTH_USER, CHANGE_USER_EMAIL, CLEAR_CURRENT_ARTICLE, CLEAR_NOTIFICATION, ERROR_GLOBAL, GET_ADMIN_ARTICLES, GET_ARTICLE, GET_ARTICLES, REMOVE_ARTICLE, SIGN_OUT, SITE_LAYOUT, SUCCESS_GLOBAL, UPDATE_ARTICLE_STATUS, UPDATE_USER_PROFILE } from "../types";
+import { ADD_ARTICLE, ADD_CATEGORY, AUTH_USER, CHANGE_USER_EMAIL, CLEAR_CURRENT_ARTICLE, CLEAR_NOTIFICATION, ERROR_GLOBAL, GET_ADMIN_ARTICLES, GET_ARTICLE, GET_ARTICLES, GET_CATEGORIES, NAV_SEARCH, REMOVE_ARTICLE, SIGN_OUT, SITE_LAYOUT, SUCCESS_GLOBAL, UPDATE_ARTICLE_STATUS, UPDATE_USER_PROFILE, VERIFY_ACCOUNT } from "../types";
 
 ////////////// ARTICLES //////////////
 export const addArticle = (article) => ({
@@ -23,6 +23,18 @@ export const updateArticleStatus = (article) => ({
 });
 export const clearCurrentArticle = () => ({
     type: CLEAR_CURRENT_ARTICLE
+});
+export const getCategories = (categories) => ({
+    type: GET_CATEGORIES,
+    payload: categories
+});
+export const addCategory = (category) => ({
+    type: ADD_CATEGORY,
+    payload: category
+});
+export const navSearch = (articles) => ({
+    type: NAV_SEARCH,
+    payload: articles
 });
 ////////////// NOTIFICATIONS //////////////
 export const errorGlobal = (msg) => ({
@@ -58,6 +70,9 @@ export const changeUserEmail = (data) => ({
 export const updateUserProfile = (userData) => ({
     type: UPDATE_USER_PROFILE,
     payload: userData
+});
+export const accountVerify = () => ({
+    type: VERIFY_ACCOUNT
 });
 ////////////// SITE //////////////
 export const appLayout = (layout) => ({

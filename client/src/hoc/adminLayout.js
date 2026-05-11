@@ -17,9 +17,17 @@ const AdminLayout = (props) => {
                                 <ListItemText primary="Profile"/>
                             </ListItem>
                             { users.data.role === 'admin' ?
-                                <ListItem button component={RouterLink} to="/dashboard/articles">
-                                    <ListItemText primary="Articles"/>
-                                </ListItem> : null
+                                <>
+                                    <ListItem button component={RouterLink} to="/dashboard/articles">
+                                        <ListItemText primary="Articles"/>
+                                    </ListItem>
+                                    <ListItem button component={RouterLink} to="/dashboard/categories">
+                                        <ListItemText primary="Categories"/>
+                                    </ListItem>
+                                    <ListItem button component={RouterLink} to="/dashboard/testupload">
+                                        <ListItemText primary="Test Upload"/>
+                                    </ListItem>
+                                </> : null
                             }
                         </List>
                     </div>

@@ -2,6 +2,7 @@ const express = require('express');
 const { User } = require('../../models/user_model');
 const { checkLoggedIn } = require('../../middleware/auth');
 const { grantAccess } = require('../../middleware/roles');
+const { contactMail, registerEmail } = require('../../config/email');
 let router = express.Router();
 require('dotenv').config();
 router.route('/register')
@@ -20,6 +21,8 @@ router.route('/register')
             const token = user.generateToken();
             const doc = await user.save();
             // 4. Send email
+            const emailToken = user.generateRegisterToken();
+            await registerEmail(doc.email, emailToken);
             // 5. Save... and send token with cookie
             res.cookie('x-access-token', token)
                 .status(200).send(getUserProps(doc));
@@ -55,8 +58,7 @@ router.route("/profile")
         } catch(error) {
             return res.status(400).send(error);
         }
-    })
-    .patch(checkLoggedIn, grantAccess('updateOwn', 'profile'), async (req, res) => {
+    }).patch(checkLoggedIn, grantAccess('updateOwn', 'profile'), async (req, res) => {
         try {
             const user = await User.findOneAndUpdate(
                 { _id: req.user._id },
@@ -97,13 +99,36 @@ router.route("/update_email")
                 .status(200)
                 .send({ email: user.email });
         } catch(error) {
-            return res.status(400).json({message: "Problem Updating", error: error});
+            res.status(400).json({message: "Problem Updating", error: error});
         }
-    })
+    });
 router.route("/isauth")
     .get(checkLoggedIn, async (req, res) => {
         res.status(200).send(getUserProps(req.user));
-    })
+    });
+router.route("/contact")
+    .post(async(req, res) => {
+        try {
+            await contactMail(req.body);
+            res.status(200).send('ok');
+        } catch(error) {
+            res.status(400).json({message: "Sorry, try again later", error: error});
+        }
+    });
+router.route("/verify")
+    .get(async(req, res) => {
+        try {
+            const token = User.validateToken(req.query.validation);
+            const user = await User.findById(token._id);
+            if(!user) return res.status(400).json({ message: "User not found!!" });
+            if(user.verified) return res.status(400).json({ message: "Already Verified!!" });
+            user.verified = true;
+            await user.save();
+            res.status(200).send(getUserProps(user));
+        } catch(error) {
+            res.status(400).send(error);
+        }
+    });
 const getUserProps = (user) => {
     return {
         _id: user._id,
@@ -111,7 +136,8 @@ const getUserProps = (user) => {
         firstname: user.firstname,
         lastname: user.lastname,
         age: user.age,
-        role: user.role
+        role: user.role,
+        verified: user.verified
     }
 }
 module.exports = router;

@@ -20,7 +20,7 @@ const UserProfile = () => {
     return (
         <>
             <form className="mt-3 article_form" style={{maxWidth: '250px'}} onSubmit={formik.handleSubmit}>
-                <div className="form-group">
+                <div className="form-group mt-3">
                     <TextField
                         style={{width: '100%'}}
                         name="firstname"
@@ -30,7 +30,7 @@ const UserProfile = () => {
                         { ...errorHelper(formik, 'firstname') }
                     />
                 </div>
-                <div className="form-group">
+                <div className="form-group mt-3">
                     <TextField
                         style={{width: '100%'}}
                         name="lastname"
@@ -40,7 +40,7 @@ const UserProfile = () => {
                         { ...errorHelper(formik, 'lastname') }
                     />
                 </div>
-                <div className="form-group">
+                <div className="form-group mt-3 mb-3">
                     <TextField
                         style={{width: '100%'}}
                         name="age"

@@ -5,6 +5,9 @@ export const GET_ARTICLE = 'get_article';
 export const GET_ADMIN_ARTICLES = 'get_admin_articles';
 export const UPDATE_ARTICLE_STATUS = 'update_article_status';
 export const CLEAR_CURRENT_ARTICLE = 'clear_current_article';
+export const GET_CATEGORIES = 'get_categories';
+export const ADD_CATEGORY = 'add_category';
+export const NAV_SEARCH = 'nav_search';
 // NOTIFICATIONS
 export const ERROR_GLOBAL = 'error_global';
 export const SUCCESS_GLOBAL = 'success_global';
@@ -15,5 +18,6 @@ export const AUTH_USER = 'auth_user';
 export const SIGN_OUT = 'sign_out';
 export const CHANGE_USER_EMAIL = 'change_user_email';
 export const UPDATE_USER_PROFILE = 'update_user_profile';
+export const VERIFY_ACCOUNT = 'verify_account';
 // SITE
 export const SITE_LAYOUT = 'site_layout';

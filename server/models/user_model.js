@@ -42,6 +42,10 @@ const userSchema = mongoose.Schema({
     date: {
         type: Date,
         default: Date.now()
+    },
+    verified: {
+        type: Boolean,
+        default: false
     }
 }, {
     // timestamps: true,
@@ -61,6 +65,16 @@ userSchema.methods.generateToken = function() {
     const userObj = {_id: user._id.toHexString(), email: user.email}
     const token = jwt.sign(userObj, process.env.DB_SECRET, { expiresIn: '1Y'});
     return token;
+}
+userSchema.methods.generateRegisterToken = function() {
+    let user = this;
+    const userObj = { _id: user._id.toHexString() }
+    const token = jwt.sign(userObj, process.env.DB_SECRET, { expiresIn: '1Y'});
+    return token;
+}
+userSchema.statics.validateToken = function(token) {
+    const verify = jwt.verify(token, process.env.DB_SECRET);
+    return verify;
 }
 userSchema.methods.comparePassword = async function(candidatePassword) {
     const user = this;

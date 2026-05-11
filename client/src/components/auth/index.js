@@ -44,7 +44,7 @@ const Auth = (props) => {
             <div className='auth_container'>
                 <h1>Authenticate</h1>
                 <form className='mt-3' onSubmit={formik.handleSubmit}>
-                    <div className='form-group'>
+                    <div className='form-group mt-3'>
                         <TextField
                             style={{width: '100%'}}
                             name='email'
@@ -54,7 +54,7 @@ const Auth = (props) => {
                             {...errorHelper(formik, 'email')}
                         />
                     </div>
-                    <div className='form-group'>
+                    <div className='form-group mt-3 mb-3'>
                         <TextField
                             style={{width: '100%'}}
                             name='password'
@@ -66,7 +66,7 @@ const Auth = (props) => {
                         />
                     </div>
                     <Button
-                        variant='container'
+                        variant='contained'
                         color='primary'
                         type="submit"
                         size='large'

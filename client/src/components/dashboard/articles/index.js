@@ -12,6 +12,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { LinkContainer } from 'react-router-bootstrap';
 import { changeStatusArticle, getPaginateArticles, removeArticle } from "../../../store/actions/article_actions";
 import PaginationComponent from "./paginate";
+import { useReducer } from "react";
+import Loader from "../../../utils/loader";
 
 const Articles = (props) => {
     const articles = useSelector(state => state.articles);
@@ -19,6 +21,12 @@ const Articles = (props) => {
     const dispatch = useDispatch();
     const [removeAlert, setRemoveAlert] = useState(false);
     const [toRemove, setToRemove] = useState(null);
+    const [loading, setLoading] = useState(true);
+    const [searchValues, setSearchValues] = useReducer(
+        (state, newState) => ({...state, ...newState}),
+        {value: '', memory: ''}
+    );
+    let limit = 5;
     let arts = articles.adminArticles;
     const editArtsAction = (id) => {
         props.history.push(`/dashboard/articles/edit/${id}`);
@@ -31,25 +39,43 @@ const Articles = (props) => {
     const handleDelete = () => {
         dispatch(removeArticle(toRemove));
     }
-    useEffect(() => {
-        handleClose();
-        if(notifications && notifications.removeArticle) {
-            dispatch(getPaginateArticles(arts.page));
-        }
-    },[dispatch, notifications, arts]);
-    useEffect(() => {
-        dispatch(getPaginateArticles());
-    },[dispatch]);
     const handleStatusChange = (status, _id) => {
         let newStatus = status === 'draft' ? 'public' : 'draft';
         dispatch(changeStatusArticle(newStatus, _id))
     }
     const goToPrevPage = (page) => {
-        dispatch(getPaginateArticles(page));
+        dispatch(getPaginateArticles(page, limit, searchValues.memory));
     }
     const goToNextPage = (page) => {
-        dispatch(getPaginateArticles(page));
+        dispatch(getPaginateArticles(page, limit, searchValues.memory));
     }
+    const triggerSearch = (e) => {
+        e.preventDefault();
+        if(searchValues.value !== '') {
+            setSearchValues({ memory: searchValues.value })
+        }
+    }
+    const resetSearch = () => {
+        setSearchValues({memory: '', value: ''});
+        dispatch(getPaginateArticles(1, limit));
+    }
+    useEffect(() => {
+        setLoading(true);
+        dispatch(getPaginateArticles(1, limit, searchValues.memory));
+    },[dispatch, searchValues.memory, limit]);
+    useEffect(() => {
+        setLoading(false);
+    },[articles]);
+    useEffect(() => {
+        handleClose();
+        if(notifications && notifications.removeArticle) {
+            dispatch(getPaginateArticles(arts.page, limit, searchValues.memory));
+        }
+    },[dispatch, notifications, arts, limit, searchValues.memory]);
+    useEffect(() => {
+        dispatch(getPaginateArticles());
+    },[dispatch]);
+    console.log(searchValues);
     return (
         <AdminLayout section="Articles">
             <div className="articles_table">
@@ -59,24 +85,44 @@ const Articles = (props) => {
                             <Button variant="secondary">Add Article</Button>
                         </LinkContainer>
                     </ButtonGroup>
-                    <form onSubmit={() => alert('search')}>
+                    <form onSubmit={triggerSearch}>
                         <InputGroup.Prepend>
                             <InputGroup.Text id="btnGroupAddon2">@</InputGroup.Text>
                         </InputGroup.Prepend>
                         <FormControl
                             type="text"
                             placeholder="Example"
+                            value={searchValues.value}
+                            onChange={(e) => setSearchValues({ value: e.target.value })}
                         />
                     </form>
                 </ButtonToolbar>
-                <PaginationComponent
-                    arts={arts}
-                    prev={(page) => goToPrevPage(page)}
-                    next={(page) => goToNextPage(page)}
-                    handleShow={(id) => handleShow(id)}
-                    handleStatusChange={(status, id) => handleStatusChange(status, id)}
-                    editArtsAction={(id) => editArtsAction(id)}
-                />
+                { loading
+                    ? <Loader/>
+                    : <>
+                        <div>
+                            {searchValues.memory !== '' ?
+                                <p>
+                                    Your search for <b>"{searchValues.memory}"</b> had {articles.adminArticles.totaldocs} results
+                                    <span
+                                        style={{color: 'blue', cursor: 'pointer'}}
+                                        onClick={() => resetSearch()}
+                                    >
+                                        RESET SEARCH
+                                    </span>
+                                </p> : null
+                            }
+                        </div>
+                        <PaginationComponent
+                            arts={arts}
+                            prev={(page) => goToPrevPage(page)}
+                            next={(page) => goToNextPage(page)}
+                            handleShow={(id) => handleShow(id)}
+                            handleStatusChange={(status, id) => handleStatusChange(status, id)}
+                            editArtsAction={(id) => editArtsAction(id)}
+                        />
+                    </>
+                }
                 <Modal show={removeAlert} onHide={handleClose}>
                     <Modal.Header closeButton>
                         <Modal.Title>Are you really sure?</Modal.Title>

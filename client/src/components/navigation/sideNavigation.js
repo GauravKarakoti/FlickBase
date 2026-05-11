@@ -1,4 +1,4 @@
-import { Divider, Drawer, List, ListItem, ListItemIcon, TextField } from '@material-ui/core';
+import { Divider, Drawer, List, ListItem, ListItemIcon, ListItemText, TextField } from '@material-ui/core';
 import DehazeIcon from '@material-ui/icons/Dehaze';
 import HomeIcon from '@material-ui/icons/Home';
 import MailIcon from '@material-ui/icons/Mail';
@@ -6,6 +6,7 @@ import VpnKeyIcon from '@material-ui/icons/VpnKey';
 import DashboardIcon from '@material-ui/icons/Dashboard';
 import { useState } from 'react';
 import { Link as RouterLink } from 'react-router-dom';
+import NavSearch from './search';
 const SideDrawer = (users, signOutUser) => {
     const [state, setState] = useState(false);
     return (
@@ -15,13 +16,9 @@ const SideDrawer = (users, signOutUser) => {
                 onClick={() => setState(true)}
             />
             <Drawer anchor={'right'} open={state} onClose={() => setState(false)}>
-                <form style={{margin: '20px'}}>
-                    <TextField
-                        id='outlined-basic'
-                        label="Search Movie"
-                        variant='outlined'
-                    />
-                </form>
+                <NavSearch
+                    closeDrawer = {() => setState(false)}
+                />
                 <Divider/>
                 <List>
                     <ListItem
@@ -31,7 +28,7 @@ const SideDrawer = (users, signOutUser) => {
                         onClick={() => setState(false)}
                     >
                         <ListItemIcon><HomeIcon/></ListItemIcon>
-                        <ListItemIcon primary="Home"/>
+                        <ListItemText primary="Home"/>
                     </ListItem>
                     <ListItem
                         button
@@ -40,7 +37,7 @@ const SideDrawer = (users, signOutUser) => {
                         onClick={() => setState(false)}
                     >
                         <ListItemIcon><MailIcon/></ListItemIcon>
-                        <ListItemIcon primary="Contact"/>
+                        <ListItemText primary="Contact"/>
                     </ListItem>
                     { !users.auth ?
                         <ListItem
@@ -50,7 +47,7 @@ const SideDrawer = (users, signOutUser) => {
                             onClick={() => setState(false)}
                         >
                             <ListItemIcon><VpnKeyIcon/></ListItemIcon>
-                            <ListItemIcon primary="Sign In"/>
+                            <ListItemText primary="Sign In"/>
                         </ListItem> : <ListItem
                             button
                             onClick={() => {
@@ -59,7 +56,7 @@ const SideDrawer = (users, signOutUser) => {
                             }}
                         >
                             <ListItemIcon><VpnKeyIcon/></ListItemIcon>
-                            <ListItemIcon primary="Sign Out"/>
+                            <ListItemText primary="Sign Out"/>
                         </ListItem>
                     }
                 </List>
@@ -74,7 +71,7 @@ const SideDrawer = (users, signOutUser) => {
                                 onClick={() => setState(false)}
                             >
                                 <ListItemIcon><DashboardIcon/></ListItemIcon>
-                                <ListItemIcon primary="Dashboard"/>
+                                <ListItemText primary="Dashboard"/>
                             </ListItem>
                         </List>
                     </> : null

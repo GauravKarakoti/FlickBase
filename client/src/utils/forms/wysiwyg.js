@@ -4,6 +4,7 @@ import { ContentState, EditorState } from "draft-js";
 import { stateToHTML } from 'draft-js-export-html';
 import { Editor } from "react-draft-wysiwyg";
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
+// edit
 import htmlToDraft from 'html-to-draftjs';
 
 const WYSIWYG = (props) => {

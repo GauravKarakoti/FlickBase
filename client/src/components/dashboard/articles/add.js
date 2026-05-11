@@ -18,12 +18,13 @@ import AddIcon from '@material-ui/icons/Add';
 import { useEffect, useRef, useState } from "react";
 import WYSIWYG from "../../../utils/forms/wysiwyg";
 import { useDispatch, useSelector } from "react-redux";
-import { addArticle } from "../../../store/actions/article_actions";
+import { addArticle, getCategories } from "../../../store/actions/article_actions";
 import Loader from "../../../utils/loader";
 
 const AddArticle = (props) => {
     const dispatch = useDispatch();
     const notifications = useSelector(state => state.notifications);
+    const { categories } = useSelector(state => state.articles);
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [editorBlur, setEditorBlur] = useState(false);
     const actorsValue = useRef('');
@@ -54,6 +55,9 @@ const AddArticle = (props) => {
             setIsSubmitting(false);
         }
     },[notifications, props.history]);
+    useEffect(() => {
+        dispatch(getCategories());
+    },[dispatch]);
     return (
         <AdminLayout section="Add Article">
             { isSubmitting 
@@ -160,6 +164,31 @@ const AddArticle = (props) => {
                             { ...errorHelper(formik, 'director') }
                         />
                     </div>
+                    <FormControl variant="outlined">
+                        <h5>Select a category</h5>
+                        <Select
+                            name="category"
+                            {...formik.getFieldProps('category')}
+                            error={formik.errors.category && formik.touched.category ? true : false}
+                        >
+                            <MenuItem value="">
+                                <em>None</em>
+                            </MenuItem>
+                            { categories ?
+                                categories.map((item) => (
+                                    <MenuItem key={item._id} value={item._id}>
+                                        {item.name}
+                                    </MenuItem>
+                                )) : null
+                            }
+                        </Select>
+                        { formik.errors.category && formik.touched.category ? true : false ?
+                            <FormHelperText error={true}>
+                                {formik.errors.category}
+                            </FormHelperText> : null
+                        }
+                    </FormControl>
+                    <Divider className="mt-3 mb-3"/>
                     <FormControl variant="outlined">
                         <h5>Select a status</h5>
                         <Select
