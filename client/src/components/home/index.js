@@ -25,7 +25,7 @@ const Home = () => {
         <div>
             CAROUSEL
         </div>
-        <Grid container spacing={2} className="article_card">
+        <Grid container spacing={2} className="article_card mb-3">
             {articles && articles.articles ?
                 articles.articles.map((item) => (
                     <Grid key={item._id} item xs={12} sm={6} lg={3}>

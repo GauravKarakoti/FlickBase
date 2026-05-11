@@ -25,6 +25,7 @@ import { clearCurrentArticle } from "../../../store/actions";
 const EditArticle = (props) => {
     const dispatch = useDispatch();
     const articles = useSelector(state => state.articles);
+    const notifications = useSelector(state => state.notifications);
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [editorBlur, setEditorBlur] = useState(false);
     const [formData, setFormData] = useState(formValues);
@@ -52,13 +53,13 @@ const EditArticle = (props) => {
         helperText: formik.errors[values] && formik.touched[values] ? formik.errors[values] : null
     });
     useEffect(() => {
-        // if(notifications && notifications.success) {
-        //     props.history.push('/dashboard/articles');
-        // }
-        // if(notifications && notifications.error) {
+        if(notifications && notifications.success) {
+            props.history.push('/dashboard/articles');
+        }
+        if(notifications && notifications.error) {
             setIsSubmitting(false);
-        // }
-    },[]);
+        }
+    },[notifications]);
     ///// edit /////
     useEffect(() => {
         dispatch(getCategories());
@@ -97,7 +98,7 @@ const EditArticle = (props) => {
                             setEditorBlur={(blur) => handleEditorBlur(blur)}
                             editContent={editContent}
                         />
-                        { formik.errors.content && editorBlur ? true : false ?
+                        { formik.errors.content && editorBlur ?
                             <FormHelperText error={true}>
                                 {formik.errors.content}
                             </FormHelperText> : null
@@ -153,7 +154,7 @@ const EditArticle = (props) => {
                                             <AddIcon/>
                                         </IconButton>
                                     </Paper>
-                                    { formik.errors.actors && formik.touched.actors ? true : false ?
+                                    { formik.errors.actors && formik.touched.actors ?
                                         <FormHelperText error={true}>
                                             {formik.errors.actors}
                                         </FormHelperText> : null
@@ -201,7 +202,7 @@ const EditArticle = (props) => {
                                 )) : null
                             }
                         </Select>
-                        { formik.errors.category && formik.touched.category ? true : false ?
+                        { formik.errors.category && formik.touched.category ?
                             <FormHelperText error={true}>
                                 {formik.errors.category}
                             </FormHelperText> : null
@@ -221,7 +222,7 @@ const EditArticle = (props) => {
                             <MenuItem value="draft">Draft</MenuItem>
                             <MenuItem value="public">Public</MenuItem>
                         </Select>
-                        { formik.errors.status && formik.touched.status ? true : false ?
+                        { formik.errors.status && formik.touched.status ?
                             <FormHelperText error={true}>
                                 {formik.errors.status}
                             </FormHelperText> : null
@@ -234,7 +235,7 @@ const EditArticle = (props) => {
                         type="submit"
                         // disabled={false}
                     >
-                        Add Article
+                        Edit Article
                     </Button>
                 </form>
             }

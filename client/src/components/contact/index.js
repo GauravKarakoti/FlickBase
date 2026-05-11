@@ -46,7 +46,7 @@ const Contact = () => {
                 : <>
                     <h1>Contact Us</h1>
                     <form className="mt-3" onSubmit={formik.handleSubmit}>
-                        <div className="form-group">
+                        <div className="form-group mb-3">
                             <TextField
                                 style={{width: '100%'}}
                                 name="email"
@@ -56,7 +56,7 @@ const Contact = () => {
                                 { ...errorHelper(formik, 'email') }
                             />
                         </div>
-                        <div className="form-group">
+                        <div className="form-group mb-3">
                             <TextField
                                 style={{width: '100%'}}
                                 name="firstname"
@@ -66,7 +66,7 @@ const Contact = () => {
                                 { ...errorHelper(formik, 'firstname') }
                             />
                         </div>
-                        <div className="form-group">
+                        <div className="form-group mb-3">
                             <TextField
                                 style={{width: '100%'}}
                                 name="lastname"
@@ -76,7 +76,7 @@ const Contact = () => {
                                 { ...errorHelper(formik, 'lastname') }
                             />
                         </div>
-                        <div className="form-group">
+                        <div className="form-group mb-3">
                             <TextField
                                 style={{width: '100%'}}
                                 name="message"

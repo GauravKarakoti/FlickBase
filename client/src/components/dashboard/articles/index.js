@@ -103,9 +103,9 @@ const Articles = (props) => {
                         <div>
                             {searchValues.memory !== '' ?
                                 <p>
-                                    Your search for <b>"{searchValues.memory}"</b> had {articles.adminArticles.totaldocs} results
+                                    Your search for <b>"{searchValues.memory}"</b> had {articles.adminArticles.totalDocs} results
                                     <span
-                                        style={{color: 'blue', cursor: 'pointer'}}
+                                        style={{color: 'blue', cursor: 'pointer', paddingLeft: '3px'}}
                                         onClick={() => resetSearch()}
                                     >
                                         RESET SEARCH

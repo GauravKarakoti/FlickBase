@@ -20,7 +20,7 @@ const ScoreCard = ({ current }) => {
                     <Avatar><PersonIcon/></Avatar>
                 </ListItemAvatar>
                 <div>
-                    {current.actor.map((item, index) => (
+                    {current.actors.map((item, index) => (
                         <Chip
                             key={`${index+item}`}
                             item={item}

@@ -41,20 +41,25 @@
             <AdminLayout section="Test Upload">
                 <Form onSubmit={formik.handleSubmit}>
                     <Form.Group>
-                        <Form.File
+                        <Form.Control
+                            type="file"
                             id="file"
                             name="file"
-                            label="Example file input"
                             onChange={(event) => {
                                 formik.setFieldValue("archive", event.target.files[0]);
                             }}
                         />
+                        
                         {
-                            formik.errors.archive && formik.error.archive.touched
-                                ? <>Error</>
+                            formik.errors.archive && formik.touched.archive
+                                ? <div className="text-danger mt-2">{formik.errors.archive}</div>
                                 : null
                         }
                     </Form.Group>
+                    
+                    <button className="mt-3 btn btn-primary" type="submit">
+                        Upload File
+                    </button>
                 </Form>
             </AdminLayout>
         )

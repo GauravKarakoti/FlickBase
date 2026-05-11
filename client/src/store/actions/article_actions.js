@@ -26,6 +26,7 @@ export const getArticle = (id) => {
             const request = await axios.get(`${process.env.REACT_APP_SERVER_URL}/api/articles/get_byid/${id}`, {
                 withCredentials: true
             });
+            console.log(request);
             dispatch(articles.getArticle(request.data[0]));
         } catch(error) {
             dispatch(articles.errorGlobal(error.response.data.message));

@@ -5,7 +5,7 @@ import Loader from "../../../utils/loader";
 import ScoreCard from "../../../utils/scoreCard";
 
 const Article = (props) => {
-    const { current } = useSelector(state => state.articles);
+    const current = useSelector(state => state.articles.articles[0]);
     const dispatch = useDispatch();
     useEffect(() => {
         // props.match.params.id

@@ -78,7 +78,7 @@ const AddArticle = (props) => {
                             setEditorState={(state) => handleEditorState(state)}
                             setEditorBlur={(blur) => handleEditorBlur(blur)}
                         />
-                        { formik.errors.content && editorBlur ? true : false ?
+                        { formik.errors.content && editorBlur ?
                             <FormHelperText error={true}>
                                 {formik.errors.content}
                             </FormHelperText> : null
@@ -134,7 +134,7 @@ const AddArticle = (props) => {
                                             <AddIcon/>
                                         </IconButton>
                                     </Paper>
-                                    { formik.errors.actors && formik.touched.actors ? true : false ?
+                                    { formik.errors.actors && formik.touched.actors ?
                                         <FormHelperText error={true}>
                                             {formik.errors.actors}
                                         </FormHelperText> : null
@@ -182,7 +182,7 @@ const AddArticle = (props) => {
                                 )) : null
                             }
                         </Select>
-                        { formik.errors.category && formik.touched.category ? true : false ?
+                        { formik.errors.category && formik.touched.category ?
                             <FormHelperText error={true}>
                                 {formik.errors.category}
                             </FormHelperText> : null
@@ -202,7 +202,7 @@ const AddArticle = (props) => {
                             <MenuItem value="draft">Draft</MenuItem>
                             <MenuItem value="public">Public</MenuItem>
                         </Select>
-                        { formik.errors.status && formik.touched.status ? true : false ?
+                        { formik.errors.status && formik.touched.status ?
                             <FormHelperText error={true}>
                                 {formik.errors.status}
                             </FormHelperText> : null
