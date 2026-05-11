@@ -59,7 +59,7 @@ const EditArticle = (props) => {
         if(notifications && notifications.error) {
             setIsSubmitting(false);
         }
-    },[notifications]);
+    },[notifications, props.history]);
     ///// edit /////
     useEffect(() => {
         dispatch(getCategories());

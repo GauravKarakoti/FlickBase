@@ -22,7 +22,7 @@ const AccountVerify = (props) => {
         } else {
             props.history.push('/');
         }
-    },[dispatch]);
+    },[dispatch, props.history, token]);
     useEffect(() => {
         if(notifications && notifications.error) {
             setIcon(<SentimentDissatisfiedIcon style={iconStyle}/>)
