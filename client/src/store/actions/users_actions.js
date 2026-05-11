@@ -33,10 +33,10 @@ export const signInUser = (values) => {
 export const isAuthUser = () => {
     return async (dispatch) => {
         try {
-            if(!getTokenCookie) {
+            if(!getTokenCookie()) {
                 throw new Error();
             }
-            const user = await axios.get(`${process.env.REACT_APP_SERVER_URL}/api.users/isauth`, getAuthHeader());
+            const user = await axios.get(`${process.env.REACT_APP_SERVER_URL}/api/users/isauth`, getAuthHeader());
             dispatch(users.authUser({data: user.data, auth: true}));
         } catch(error) {
             dispatch(users.authUser({data: {}, auth: false}));
@@ -73,7 +73,7 @@ export const updateUserProfile = (data) => {
                 getAuthHeader()
             );
             const userData = {
-                ...getState().user.data,
+                ...getState().users.data,
                 ...profile.data
             }
             dispatch(users.updateUserProfile(userData));
