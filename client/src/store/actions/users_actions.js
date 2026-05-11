@@ -8,7 +8,7 @@ export const registerUser = (values) => {
             const user = await axios.post(`${process.env.REACT_APP_SERVER_URL}/api/users/register`, {
                 email: values.email,
                 password: values.password
-            });
+            }, { withCredentials: true });
             dispatch(users.authUser({data: user.data, auth: true}));
             dispatch(users.successGlobal('Welcome!! Check your email and validate your account'));
         } catch(error) {
@@ -22,7 +22,7 @@ export const signInUser = (values) => {
             const user = await axios.post(`${process.env.REACT_APP_SERVER_URL}/api/users/signin`, {
                 email: values.email,
                 password: values.password
-            });
+            }, { withCredentials: true });
             dispatch(users.authUser({data: user.data, auth: true}));
             dispatch(users.successGlobal('Welcome!!'));
         } catch(error) {
@@ -86,7 +86,9 @@ export const updateUserProfile = (data) => {
 export const contactUs = (data) => {
     return async(dispatch) => {
         try {
-            await axios.post(`${process.env.REACT_APP_SERVER_URL}/api/users/contact`, data);
+            await axios.post(`${process.env.REACT_APP_SERVER_URL}/api/users/contact`, data, {
+                withCredentials: true
+            });
             dispatch(users.successGlobal('We will contact you back'));
         } catch(error) {
             dispatch(users.errorGlobal(error.response.data.message));
@@ -97,7 +99,9 @@ export const accountVerify = (token) => {
     return async(dispatch, getState) => {
         try {
             const user = getState().users.auth;
-            await axios.get(`${process.env.REACT_APP_SERVER_URL}/api/users/verify?validation=${token}`);
+            await axios.get(`${process.env.REACT_APP_SERVER_URL}/api/users/verify?validation=${token}`, {
+                withCredentials: true
+            });
             if(user) {
                 dispatch(users.accountVerify());
             }

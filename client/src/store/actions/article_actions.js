@@ -5,7 +5,9 @@ axios.defaults.headers.post['Content-Type'] = 'application/json';
 export const getArticles = (sort) => {
     return async (dispatch, getState) => {
         try {
-            const arts = await axios.post(`${process.env.REACT_APP_SERVER_URL}/api/articles/loadmore`, sort);
+            const arts = await axios.post(`${process.env.REACT_APP_SERVER_URL}/api/articles/loadmore`, sort, {
+                withCredentials: true
+            });
             const prevArts = getState().articles.articles;
             let newArts = [...arts.data];
             if(prevArts) {
@@ -21,7 +23,9 @@ export const getArticles = (sort) => {
 export const getArticle = (id) => {
     return async (dispatch) => {
         try {
-            const request = await axios.get(`${process.env.REACT_APP_SERVER_URL}/api/articles/get_byid/${id}`);
+            const request = await axios.get(`${process.env.REACT_APP_SERVER_URL}/api/articles/get_byid/${id}`, {
+                withCredentials: true
+            });
             dispatch(articles.getArticle(request.data[0]));
         } catch(error) {
             dispatch(articles.errorGlobal(error.response.data.message));
@@ -146,7 +150,7 @@ export const getSearchNavResults = (page=1, limit=5, keywords='') => {
                 keywords,
                 page,
                 limit
-            });
+            }, { withCredentials: true });
             dispatch(articles.navSearch(request.data));
         } catch(error) {
             dispatch(articles.errorGlobal(error.response.data.message));
