@@ -7,7 +7,7 @@ import DashboardIcon from '@material-ui/icons/Dashboard';
 import { useState } from 'react';
 import { Link as RouterLink } from 'react-router-dom';
 import NavSearch from './search';
-const SideDrawer = (users, signOutUser) => {
+const SideDrawer = ({users, signOutUser}) => {
     const [state, setState] = useState(false);
     return (
         <>

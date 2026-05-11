@@ -86,15 +86,15 @@ const Articles = (props) => {
                         </LinkContainer>
                     </ButtonGroup>
                     <form onSubmit={triggerSearch}>
-                        <InputGroup.Prepend>
+                        <InputGroup>
                             <InputGroup.Text id="btnGroupAddon2">@</InputGroup.Text>
-                        </InputGroup.Prepend>
-                        <FormControl
-                            type="text"
-                            placeholder="Example"
-                            value={searchValues.value}
-                            onChange={(e) => setSearchValues({ value: e.target.value })}
-                        />
+                            <FormControl
+                                type="text"
+                                placeholder="Example"
+                                value={searchValues.value}
+                                onChange={(e) => setSearchValues({ value: e.target.value })}
+                            />
+                        </InputGroup>
                     </form>
                 </ButtonToolbar>
                 { loading

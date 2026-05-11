@@ -15,7 +15,10 @@ mongoose.connect(mongoUri, {
     useCreateIndex: true,
     useFindAndModify: false
 });
-app.use(cors());
+app.use(cors({
+    origin: process.env.SITE_DOMAIN,
+    credentials: true
+}));
 app.use(bodyParser.json());
 app.use(checkToken);
 app.use("/api/users", users);

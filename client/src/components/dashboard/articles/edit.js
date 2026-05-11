@@ -136,7 +136,7 @@ const EditArticle = (props) => {
                         <h5>Add the actors</h5>
                         <FieldArray
                             name="actors"
-                            render={arrayHelpers => {
+                            render={arrayHelpers => (
                                 <div>
                                     <Paper className="actors_form">
                                         <InputBase
@@ -170,7 +170,7 @@ const EditArticle = (props) => {
                                         ))}
                                     </div>
                                 </div>
-                            }}
+                            )}
                         />
                     </FormikProvider>
                     <div className="form-group">
